@@ -6,7 +6,7 @@ defmodule TaskTracker.Users.User do
   schema "users" do
     field :admin, :boolean, default: false
     field :email, :string
-    has_many :assigned_tasks, TaskTracker.Tasks.Task
+    has_many :tasks, TaskTracker.Tasks.Task
 
     timestamps()
   end

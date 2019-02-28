@@ -5,10 +5,9 @@ defmodule TaskTracker.Repo.Migrations.CreateTasks do
     create table(:tasks) do
       add :title, :string
       add :description, :text
-      add :reporter, :string
-      add :assignee, :string
       add :hours, :float
       add :complete, :boolean, default: false, null: false
+      add :user_id, references(:users)
 
       timestamps()
     end
