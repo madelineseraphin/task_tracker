@@ -1,38 +1,31 @@
 <h1>Listing Tasks</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Assignee</th>
-      <th>Hours</th>
-      <th>Complete</th>
+<div class="row">
+  <%= for task <- @tasks do %>
+    <div class="card col-8">
+      <div class="card-body">
+        <div class="card-title">
+          <%= link(task.title, to: Routes.task_path(@conn, :show, task)) %>
+        </div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for task <- @tasks do %>
-    <tr>
-      <td><%= task.title %></td>
-      <td><%= task.description %></td>
-      <td><%= task.assignee %></td>
-      <td><%= task.hours %></td>
-      <td><%= task.complete %></td>
+        <div class="card-text">
+          <p><%= task.description %></p>
 
-      <td>
-        <%= link "Show", to: Routes.task_path(@conn, :show, task),
-            class: "btn btn-secondary" %>
-        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),
-            class: "btn btn-info" %>
-        <%= link "Delete", to: Routes.task_path(@conn, :delete, task),
-            method: :delete, data: [confirm: "Are you sure?"],
-            class: "btn btn-danger" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <p>
+            <%= link("Edit", to: Routes.task_path(@conn, :edit, task),
+            class: "btn btn-info") %>
+
+            <%= if @current_user && @current_user.admin do %>
+              <%= link("Delete", to: Routes.task_path(@conn, :delete, task),
+                method: :delete, data: [confirm: "Are you sure you want to delete this task?"],
+                class: "btn btn-danger") %>
+            <% end %>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary" %></span>

@@ -18,9 +18,14 @@
             <li class="nav-item active">
               <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/tasks">Tasks</a>
-            </li>
+            <%= if @current_user do %>
+              <li class="nav-item">
+                <a class="nav-link" href="/tasks">Tasks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+              </li>
+            <% end %>
           </ul>
         </div>
         <div class="col-4">
@@ -56,6 +61,7 @@
       </div>
 
       <%= render @view_module, @view_template, assigns %>
+
     </div>
     <script type="text/javascript" src="<%= Routes.static_url(@conn, "/js/app.js") %>"></script>
   </body>

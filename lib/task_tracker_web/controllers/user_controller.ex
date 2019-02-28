@@ -4,6 +4,8 @@ defmodule TaskTrackerWeb.UserController do
   alias TaskTracker.Users
   alias TaskTracker.Users.User
 
+  plug TaskTrackerWeb.Plugs.RequireAdmin when action in [:delete]
+
   def index(conn, _params) do
     users = Users.list_users()
     render(conn, "index.html", users: users)

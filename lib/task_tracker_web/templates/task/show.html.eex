@@ -14,7 +14,11 @@
 
   <li>
     <strong>Assignee:</strong>
-    <%= @task.assignee %>
+    <%= if @task.user do %>
+      yup
+    <% else %>
+      Unassigned
+    <% end %>
   </li>
 
   <li>

@@ -17,8 +17,12 @@
 
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
-        <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
-        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= if @current_user && @current_user.email === user.email do %>
+          <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
+        <% end %>
+        <%= if @current_user && @current_user.admin do %>
+          <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
+        <% end %>
       </td>
     </tr>
 <% end %>
