@@ -1,20 +1,17 @@
 # TaskTracker
 
-To start your Phoenix server:
+A Phoenix/Elixir project running at [http://tasks1.dannydevito.fun/](http://tasks1.dannydevito.fun/).
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+The purpose of this application is to allow developers to track development issues and their progress.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## The Users
+New users will click register and then enter an email address to create an account. They will use this email to log in again once they log out.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Some users are admin users. The difference between admin users and regular users is that only admin users can edit/delete other users and delete tasks. All users can create and edit tasks and edit their own account.
 
-## Learn more
+## The Tasks
+A Task consists of a title, description, assignee, time it's been worked on, and whether or not it's completed.
+To create a task, click on the Tasks link in the navbar, then click New Task. Then fill in the task's title and description, and you have the option to assign it to any of the site's users.
+If the task is assigned to you, you will be able to edit the task again and log how much time you've spent on the task and report when you've completed it.
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+If used correctly, this tool can enable teams to be more collaborative and efficient. Happy tracking!
