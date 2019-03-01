@@ -1,0 +1,16 @@
+[Unit]
+Description=Task Tracker
+
+[Service]
+Type=simple
+User=task_tracker
+Group=task_tracker
+Restart=on-failure
+Environment=MIX_ENV=prod "PORT=4000"
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/tasks1/task_tracker
+ExecStart=/home/tasks1/task_tracker/start.sh
+
+[Install]
+WantedBy=multi-user.target
