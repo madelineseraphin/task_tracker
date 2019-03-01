@@ -14,21 +14,26 @@
 
   <li>
     <strong>Assignee:</strong>
-    <%= if @task.user do %>
-      yup
+    <%= @user %>
+  </li>
+
+  <li>
+    <strong>Time worked on:</strong>
+    <%= @task.hours %> hours
+  </li>
+
+  <li>
+    <strong>
+    <%= if @task.complete do %>
+      Completed!
     <% else %>
-      Unassigned
+      <%= if @task.hours > 0.00 do %>
+        In progress
+      <% else %>
+        Not started
+      <% end %>
     <% end %>
-  </li>
-
-  <li>
-    <strong>Hours:</strong>
-    <%= @task.hours %>
-  </li>
-
-  <li>
-    <strong>Complete:</strong>
-    <%= @task.complete %>
+    </strong>
   </li>
 
 </ul>

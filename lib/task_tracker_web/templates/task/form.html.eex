@@ -18,35 +18,23 @@
   </div>
 
   <div class="form-group">
-    <label>Time worked on</label>
-    <div class="form-row">
-      <div class="col input-group">
-      <%# <div class="col"> %>
-        <input type="text" class="form-control" id="hrs" >
-        <label class="input-group-addon">Hours</label>
-      </div>
-      <div class="col input-group">
-        <select class="form-control" id="mins">
-          <option value="0.00" selected>0</option>
-          <option value="0.25">15</option>
-          <option value="0.50">30</option>
-          <option value="0.75">45</option>
-        </select>
-        <label class="input-group-addon">Minutes</label>
-      </div>
-      <input type="hidden" id="task_hours" />
-    </div>
-    
-    <%# <%= label f, :hours %>
-    <%# <%= number_input f, :hours, step: "any", class: "form-control" %>
-    <%# <%= error_tag f, :hours %>
+    <%= label f, :user_id, "Assignee" %>
+    <%= select f, :user_id, Enum.map(@users, &{&1.email, &1.id}), prompt: "Unassigned", class: "form-control" %>
   </div>
 
-  <div class="form-check">
-    <%= checkbox f, :complete, class: "form-check-input" %>
-    <%= label f, :complete, class: "form-check-label" %>
-    <%= error_tag f, :complete %>
-  </div>
+  <%= if @task.user_id && @task.user_id === @current_user.id do %>
+    <div class="form-group">
+      <%= label f, :hours, "Time worked on" %>
+      <%= number_input f, :hours, step: 0.25, min: 0.00, class: "form-control" %>
+      <%= error_tag f, :hours %>
+    </div>
+
+    <div class="form-check">
+      <%= checkbox f, :complete, class: "form-check-input" %>
+      <%= label f, :complete, class: "form-check-label" %>
+      <%= error_tag f, :complete %>
+    </div>
+  <% end %>
 
   <div>
     <%= submit "Save", class: "btn btn-primary" %>
