@@ -22,21 +22,24 @@
     <%= select f, :user_id, Enum.map(@users, &{&1.email, &1.id}), prompt: "Unassigned", class: "form-control" %>
   </div>
 
-  <%= if :user_id && :user_id === @current_user.id do %>
-    <div class="form-group">
-      <%= label f, :hours, "Time worked on" %>
-      <%= number_input f, :hours, step: 0.25, min: 0.00, class: "form-control" %>
-      <%= error_tag f, :hours %>
-    </div>
+  <%= if assigns[:task] do %>
+    <%= if @task.user_id === @current_user.id do %>
+      <div class="form-group">
+        <%= label f, :hours, "Time worked on" %>
+        <%= number_input f, :hours, step: 0.25, min: 0.00, class: "form-control" %>
+        <%= error_tag f, :hours %>
+      </div>
 
-    <div class="form-check">
-      <%= checkbox f, :complete, class: "form-check-input" %>
-      <%= label f, :complete, class: "form-check-label" %>
-      <%= error_tag f, :complete %>
-    </div>
+      <div class="form-check">
+        <%= checkbox f, :complete, class: "form-check-input" %>
+        <%= label f, :complete, class: "form-check-label" %>
+        <%= error_tag f, :complete %>
+      </div>
+    <% end %>
   <% end %>
 
-  <div>
+  <div class="btn-group">
+  
     <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
