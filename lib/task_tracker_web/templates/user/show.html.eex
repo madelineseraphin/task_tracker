@@ -7,9 +7,28 @@
     <%= @user.email %>
   </li>
 
+  <%= if @user.admin do %>
+    <li>
+      <strong>Admin User</strong>
+    </li>
+  <% end %>
+
   <li>
-    <strong>Admin:</strong>
-    <%= @user.admin %>
+    <strong>Manager:</strong>
+    <%= @manager %>
+  </li>
+
+  <li>
+    <strong>Underlings:</strong>
+    <%= if length(@underlings) > 0 do %>
+      <ul>
+        <%= for underling <- @underlings do %>
+          <li><%= underling.email %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      None
+    <% end %>
   </li>
 
 </ul>

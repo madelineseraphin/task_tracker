@@ -107,4 +107,18 @@ defmodule TaskTracker.Tasks do
   def change_task(%Task{} = task) do
     Task.changeset(task, %{})
   end
+
+  @doc """
+  Returns all tasks assigned to the given user.
+
+  ## Examples 
+
+      iex> get_user_tasks(id)
+      []
+
+  """
+  def get_user_tasks(id) do
+    query = from(t in Task, where: t.user_id == ^id, select: t)
+    Repo.all(query)
+  end
 end

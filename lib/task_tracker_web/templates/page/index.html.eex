@@ -1,8 +1,88 @@
 <div class="row">
   <div class="col-12">
     <h1>Welcome to Task Tracker</h1>
+
     <%= if @current_user do %>
-      <p>Welcome back <%= @current_user.email %>!</p>
+      <h2>My Tasks</h2>
+      <%= if length(TaskTracker.Tasks.get_user_tasks(@current_user.id)) < 1 do %>
+        <p>No tasks assigned to you!</p>
+      <% else %>
+      <p>Tasks assigned to you</p>
+      <%= for task <- TaskTracker.Tasks.get_user_tasks(@current_user.id) do %>
+          <div class="card col-12">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-8">
+                  <%= link(task.title, to: Routes.task_path(@conn, :show, task)) %>
+                </div>
+                <div class="col-2">
+                  <%= if task.complete do %>
+                    Completed!
+                  <% else %>
+                    <%= if task.hours > 0.00 do %>
+                      In progress
+                    <% else %>
+                      Not started
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="col-2">
+                  <%= link("Edit", to: Routes.task_path(@conn, :edit, task),
+                      class: "btn btn-info") %>
+                  <%= if @current_user && @current_user.admin do %>
+                    <%= link("Delete", to: Routes.task_path(@conn, :delete, task),
+                      method: :delete, data: [confirm: "Are you sure you want to delete this task?"],
+                      class: "btn btn-danger") %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      
+      <%= if TaskTracker.Users.is_manager(@current_user.id) do %>
+        <br>
+        <h2>Task Report</h2>
+        <p>Tasks assigned to your underlings</p>
+        <%= for user <- TaskTracker.Users.get_underlings(@current_user.id) do %>
+          <%= for task <- TaskTracker.Tasks.get_user_tasks(user.id) do %>
+            <div class="card col-12">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-5">
+                    <%= link(task.title, to: Routes.task_path(@conn, :show, task)) %>
+                  </div>
+                  <div class="col-3">
+                    <%= TaskTracker.Users.get_user(task.user_id).email %>
+                  </div>
+                  <div class="col-2">
+                    <%= if task.complete do %>
+                      Completed!
+                    <% else %>
+                      <%= if task.hours > 0.00 do %>
+                        In progress
+                      <% else %>
+                        Not started
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="col-2">
+                    <%= link("Edit", to: Routes.task_path(@conn, :edit, task),
+                        class: "btn btn-info") %>
+                    <%= if @current_user && @current_user.admin do %>
+                      <%= link("Delete", to: Routes.task_path(@conn, :delete, task),
+                        method: :delete, data: [confirm: "Are you sure you want to delete this task?"],
+                        class: "btn btn-danger") %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      
     <% else %>
       <%= link "Register", to: Routes.user_path(@conn, :new) %>
     <% end %>

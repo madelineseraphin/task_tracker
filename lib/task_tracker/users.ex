@@ -107,4 +107,30 @@ defmodule TaskTracker.Users do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  @doc """
+  Returns all the underlings of the given user.
+
+  ## Examples
+
+      iex> get_underlings(user_id)
+      []
+
+  """
+  def get_underlings(id) do 
+    query = from(u in User, where: u.manager_id == ^id, select: u)
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns whether or not the given user is a manager.
+
+  ## Examples
+      iex> is_manager(user_id)
+      false
+
+  """
+  def is_manager(id) do
+    length(get_underlings(id)) > 0
+  end
 end
