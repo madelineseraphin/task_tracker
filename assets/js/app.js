@@ -46,18 +46,3 @@ $(function () {
       });
     });
   });
-
-//   $(function () {
-//     function update_time_blocks(task_id) {
-//       $.ajax(`${time_block_path}?task_id=${task_id}`, {
-//         method: "get",
-//         dataType: "json",
-//         contentType: "application/json; charset=UTF-8",
-//         data: "",
-//         success: (resp) => {
-//           let count = resp.data.length;
-//           let sum = _.sum(_.map(resp.data, (rat) => rat.stars));
-//           $('#rating-avg').text(`${sum/count} / 5 (${count} ratings)`);
-//         },
-//       });
-//     }
