@@ -26,10 +26,20 @@
 
   <%= if assigns[:task] do %>
     <%= if @task.user_id === @current_user.id do %>
-      <div class="form-group">
-        <%= label f, :hours, "Time worked on" %>
-        <%= number_input f, :hours, step: 0.25, min: 0.00, class: "form-control" %>
-        <%= error_tag f, :hours %>
+      <label>Time worked on</label>
+      <label>New Time Block</label>
+      <div id="time-block-form">
+        <div class="form-group">
+          <label>Start time</label>
+          <input type="datetime-local" id="start-time" class="form-control" step="60"/>
+        </div>
+        <div class="form-group">
+          <label>End time</label>
+          <input type="datetime-local" id="end-time" class="form-control" step="60"/>
+        </div>
+        <button id="time-block-button"
+                data-task-id="<%= @task.id %>"
+                class="btn btn-secondary">Add</button>
       </div>
 
       <div class="form-check">

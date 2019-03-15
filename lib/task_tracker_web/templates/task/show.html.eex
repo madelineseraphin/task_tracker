@@ -19,21 +19,7 @@
 
   <li>
     <strong>Time worked on:</strong>
-    <%= @task.hours %> hours
-  </li>
-
-  <li>
-    <strong>
-    <%= if @task.complete do %>
-      Completed!
-    <% else %>
-      <%= if @task.hours > 0.00 do %>
-        In progress
-      <% else %>
-        Not started
-      <% end %>
-    <% end %>
-    </strong>
+    
   </li>
 
 </ul>

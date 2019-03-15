@@ -9,15 +9,6 @@
             <%= link(task.title, to: Routes.task_path(@conn, :show, task)) %>
           </div>
           <div class="col-2">
-            <%= if task.complete do %>
-              Completed!
-            <% else %>
-              <%= if task.hours > 0.00 do %>
-                In progress
-              <% else %>
-                Not started
-              <% end %>
-            <% end %>
           </div>
           <div class="col-2">
             <%= link("Edit", to: Routes.task_path(@conn, :edit, task),
